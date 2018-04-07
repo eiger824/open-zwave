@@ -65,6 +65,8 @@ Msg::Msg
 	m_expectedReply( 0 ),
 	m_expectedCommandClassId( _expectedCommandClassId ),
 	m_length( 4 ),
+    m_messageType( _msgType ),
+    m_functionType( _function ),
 	m_targetNodeId( _targetNodeId ),
 	m_sendAttempts( 0 ),
 	m_maxSendAttempts( MAX_TRIES ),
@@ -238,7 +240,7 @@ string Msg::GetAsString()
 	{
 		if( i )
 		{
-			str += ", ";
+            str += ", ";
 		}
 
 		snprintf( byteStr, sizeof(byteStr), "0x%.2x", m_buffer[i] );

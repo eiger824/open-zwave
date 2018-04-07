@@ -130,6 +130,8 @@ static char const* c_sendQueueNames[] =
 		"Poll"
 };
 
+static bool waitingForSwitchRsp { false };
+
 
 //-----------------------------------------------------------------------------
 // <Driver::Driver>
@@ -657,6 +659,7 @@ bool Driver::ReadConfig
 	TiXmlDocument doc;
 	if( !doc.LoadFile( filename.c_str(), TIXML_ENCODING_UTF8 ) )
 	{
+        Log::Write( LogLevel_Error, "ERROR: could not find file '%s'.", filename.c_str());
 		return false;
 	}
 
@@ -967,6 +970,15 @@ void Driver::SendMsg
 		MsgQueue const _queue
 )
 {
+    uint8 * buf = _msg->GetBuffer();
+    if (buf != NULL and  /* Valid buffer */
+            ( *(buf + 6) == 0x25  /* COMMAND_CLASS_SWITCH_BINARY */
+              and *(buf + 7) == 0x01 )) /* SwitchBinaryCmd_Set */
+    {
+        cout << "\n\n\n\n\n\n\nSending message to switch binary!\n\n\n\n\n" << endl;
+        //TODO: implement extra queue with pending messages
+        waitingForSwitchRsp = true;
+    }
 	MsgQueueItem item;
 
 	item.m_command = MsgQueueCmd_SendMsg;
@@ -1295,6 +1307,17 @@ void Driver::RemoveCurrentMsg
 )
 {
 	Log::Write( LogLevel_Detail, GetNodeNumber( m_currentMsg ), "Removing current message" );
+
+    /* Notify only if `waitingForSwitchRsp` is true */
+    if (waitingForSwitchRsp)
+    {
+        Notification * notification = new Notification(Notification::Type_Notification);
+        notification->SetHomeAndNodeIds( m_homeId, m_currentMsg->GetTargetNodeId());
+        QueueNotification( notification );
+        // And set it to false
+        waitingForSwitchRsp = false;
+    }
+
 	if( m_currentMsg != NULL)
 	{
 		delete m_currentMsg;

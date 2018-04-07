@@ -59,6 +59,9 @@ namespace OpenZWave
 		void Finalize();
 		void UpdateCallbackId();
 
+        uint8 GetMessageType() const { return m_messageType; };
+        uint8 GetFunctionType() const { return m_functionType; };
+
 		/**
 		 * \brief Identifies the Node ID of the "target" node (if any) for this function.
 		 * \return Node ID of the target.
@@ -182,6 +185,8 @@ namespace OpenZWave
 		uint8			m_expectedReply;
 		uint8			m_expectedCommandClassId;
 		uint8			m_length;
+        uint8           m_messageType;
+        uint8           m_functionType;
 		uint8			m_buffer[256];
 		uint8			e_buffer[256];
 

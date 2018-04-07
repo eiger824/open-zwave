@@ -2549,7 +2549,8 @@ bool Manager::SetValue
 )
 {
 	bool res = false;
-
+    cout << left << setw(40) << "Setting value:" << static_cast<int>(_value) << endl;
+    cout << left << setw(40) << "ValueType:" << static_cast<int>(_id.GetType()) << "\n\n\n" << endl;
 	if( ValueID::ValueType_Byte == _id.GetType() )
 	{
 		if( Driver* driver = GetDriver( _id.GetHomeId() ) )

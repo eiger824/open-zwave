@@ -48,10 +48,11 @@ Options* Options::Create
 (
 	string const& _configPath,
 	string const& _userPath,
-	string const& _commandLine
+	string const& _commandLine,
+    bool & success
 )
 {
-
+    success = true;
 	if( s_instance == NULL )
 	{
 		string configPath = _configPath;
@@ -68,29 +69,11 @@ Options* Options::Create
 		}
 
 		FileOps::Create();
+        Log::Create( "", false, true, LogLevel_Debug, LogLevel_Debug, LogLevel_None );
 		if( !FileOps::FolderExists( configPath ) )
 		{
-			Log::Create( "", false, true, LogLevel_Debug, LogLevel_Debug, LogLevel_None );
-			/* Try some default directories */
-			if ( FileOps::FolderExists( "config/" ) )
-			{
-				Log::Write( LogLevel_Error, "Cannot find a path to the configuration files at %s, Using config/ instead...", configPath.c_str() );
-				configPath = "config/";
-			} else if (FileOps::FolderExists("/etc/openzwave/" ) )
-			{
-				Log::Write( LogLevel_Error, "Cannot find a path to the configuration files at %s, Using /etc/openzwave/ instead...", configPath.c_str() );
-				configPath = "/etc/openzwave/";
-#ifdef SYSCONFDIR
-			} else if ( FileOps::FolderExists(SYSCONFDIR ) )
-			{
-				Log::Write( LogLevel_Error, "Cannot find a path to the configuration files at %s, Using %s instead...", configPath.c_str(), SYSCONFDIR);
-				configPath = SYSCONFDIR;
-#endif
-			} else {
-				Log::Write( LogLevel_Error, "Cannot find a path to the configuration files at %s. Exiting...", configPath.c_str() );
-				OZW_FATAL_ERROR(OZWException::OZWEXCEPTION_CONFIG, "Cannot Find Configuration Files");
-				return NULL;
-			}
+            success = false;
+            return NULL;
 		}
 		FileOps::Destroy();
 		s_instance = new Options( configPath, userPath, _commandLine );

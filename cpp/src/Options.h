@@ -103,7 +103,7 @@ namespace OpenZWave
 		 * \return Pointer to the newly created Options object.
 		 * \see Get, Destroy, AddOption, GetOptionAs, Lock
 		 */
-		static Options* Create( string const& _configPath, string const& _userPath, string const& _commandLine );
+        static Options* Create( string const& _configPath, string const& _userPath, string const& _commandLine, bool & success );
 
 		/**
 		 * Deletes the Options and cleans up any associated objects.
