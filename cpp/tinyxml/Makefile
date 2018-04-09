@@ -19,11 +19,11 @@ TINYXML_USE_STL := YES
 
 #****************************************************************************
 
-CC     := gcc
-CXX    := g++
-LD     := g++
-AR     := ar rc
-RANLIB := ranlib
+CC     ?= gcc
+CXX    ?= g++
+LD     ?= g++
+AR     ?= ar rc
+RANLIB ?= ranlib
 
 DEBUG_CFLAGS     := -Wall -Wno-format -g -DDEBUG $(CPPFLAGS)
 RELEASE_CFLAGS   := -Wall -Wno-unknown-pragmas -Wno-format -O3 $(CPPFLAGS)
