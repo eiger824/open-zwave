@@ -108,6 +108,7 @@ pkgconfigdir ?= $(shell test -d "$(instlibdir)/pkgconfig" && echo "$(instlibdir)
 endif
 
 ifeq ($(BITBAKE_ENV),1)
+bindir = $(PREFIX)/usr/bin/
 instlibdir = $(PREFIX)/usr/lib/
 sysconfdir = $(PREFIX)/etc/openzwave/
 includedir = $(PREFIX)/usr/include/openzwave/

@@ -79,7 +79,8 @@ xmltest:	$(XMLLINT)
 endif
 
 install: $(OBJDIR)/MinOZW
-	@echo "Installing into Prefix: $(PREFIX)"
-	@install -d $(DESTDIR)/$(PREFIX)/bin/
-	@cp $(OBJDIR)/MinOZW $(DESTDIR)/$(PREFIX)/bin/MinOZW
-	@chmod 755 $(DESTDIR)/$(PREFIX)/bin/MinOZW
+	@echo "Installing into Prefix: $(DESTDIR)$(bindir)"
+	sleep 10
+	@install -d $(DESTDIR)$(bindir)
+	@cp $(OBJDIR)/MinOZW $(DESTDIR)$(bindir)/MinOZW
+	@chmod 755 $(DESTDIR)/$(bindir)/MinOZW
