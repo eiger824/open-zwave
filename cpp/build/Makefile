@@ -231,9 +231,10 @@ install: $(LIBDIR)/$(SHARED_LIB_NAME) doc $(top_builddir)/libopenzwave.pc $(top_
 	@echo "Installing Pkg-config Files (in $(DESTDIR)$(pkgconfigdir))"
 	@install -d $(DESTDIR)$(pkgconfigdir)
 	@cp $(top_builddir)/libopenzwave.pc $(DESTDIR)$(pkgconfigdir)
-	@install -d $(DESTDIR)$(PREFIX)/bin/
-	@cp $(top_builddir)/ozw_config $(DESTDIR)$(PREFIX)/bin/ozw_config
-	@chmod 755 $(DESTDIR)$(PREFIX)/bin/ozw_config
+	@echo "Installing ozw_config file (in $(DESTDIR)$(bindir))"
+	@install -d $(DESTDIR)$(bindir)
+	@cp $(top_builddir)/ozw_config $(DESTDIR)$(bindir)/ozw_config
+	@chmod 755 $(DESTDIR)$(bindir)/ozw_config
 
 
 

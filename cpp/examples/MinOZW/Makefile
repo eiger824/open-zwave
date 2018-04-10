@@ -80,7 +80,6 @@ endif
 
 install: $(OBJDIR)/MinOZW
 	@echo "Installing into Prefix: $(DESTDIR)$(bindir)"
-	sleep 10
 	@install -d $(DESTDIR)$(bindir)
 	@cp $(OBJDIR)/MinOZW $(DESTDIR)$(bindir)/MinOZW
 	@chmod 755 $(DESTDIR)/$(bindir)/MinOZW
