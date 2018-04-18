@@ -975,7 +975,6 @@ void Driver::SendMsg
             ( *(buf + 6) == 0x25  /* COMMAND_CLASS_SWITCH_BINARY */
               and *(buf + 7) == 0x01 )) /* SwitchBinaryCmd_Set */
     {
-        cout << "\n\n\n\n\n\n\nSending message to switch binary!\n\n\n\n\n" << endl;
         //TODO: implement extra queue with pending messages
         waitingForSwitchRsp = true;
     }
